@@ -1,10 +1,11 @@
 package com.mercadolivro.service
 
 import com.mercadolivro.model.CustomerModel
+import com.mercadolivro.repository.CustomerRepository
 import org.springframework.stereotype.Service
 
 @Service
-class CustomerService {
+class CustomerService ( val customerRepository: CustomerRepository) {
 
     val customers = mutableListOf<CustomerModel>()
 
@@ -18,14 +19,15 @@ class CustomerService {
 
     fun create(customer: CustomerModel) {
 
-        val id = if(customers.isEmpty()){
+        customerRepository.save(customer)
+/*        val id = if(customers.isEmpty()){
             1
         } else{
             customers.last().id!!.toInt() + 1
         }
 
-        customer.id = id
-        customers.add(customer)
+        customer.id = id*/
+        //customers.add(customer)
     }
 
     fun getCustomer(id:Int): CustomerModel {
