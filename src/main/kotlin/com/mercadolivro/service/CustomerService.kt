@@ -12,37 +12,45 @@ class CustomerService ( val customerRepository: CustomerRepository) {
     fun getAll(name: String?): List<CustomerModel> {
         //return CustomerModel("1","Fabio Cunha","fabio.cunha@spdm.org.br")
         name?.let {
-            return customers.filter { it.name.contains(name,true) }
+            //return customers.filter { it.name.contains(name,true) }
+            return customerRepository.findByNameContaining(it)
         }
-        return customers
+        //return customers
+        return customerRepository.findAll().toList()
     }
 
     fun create(customer: CustomerModel) {
 
         customerRepository.save(customer)
-/*        val id = if(customers.isEmpty()){
-            1
-        } else{
-            customers.last().id!!.toInt() + 1
-        }
-
-        customer.id = id*/
-        //customers.add(customer)
     }
 
     fun getCustomer(id:Int): CustomerModel {
-        return customers.filter { it.id!!.equals(id) }.first()
+
+        return customerRepository.findById(id).orElseThrow()
+        //return customers.filter { it.id!!.equals(id) }.first()
     }
 
     fun update(customer: CustomerModel){
-        customers.filter { it.id!!.equals(customer.id)}.first().let {
+/*        customers.filter { it.id!!.equals(customer.id)}.first().let {
             it.name = customer.name
             it.email = customer.email
+        }*/
+
+        if (!(customerRepository.existsById(customer.id!!))){
+            throw Exception()
         }
+
+        customerRepository.save(customer)
+
     }
 
     fun delete(id: Int){
-        customers.removeIf { it.id == id }
+        //customers.removeIf { it.id == id }
+        if (!(customerRepository.existsById(id))){
+            throw Exception()
+        }
+
+        customerRepository.deleteById(id)
     }
 
 }

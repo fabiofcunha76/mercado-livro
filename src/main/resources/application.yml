@@ -6,5 +6,5 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/mercadolivro?createDatabaseIfNotExist=true
     username: fabiofcunha
-    password: Lverdino76@
+    password: Hidrion23@
     driver-class-name: com.mysql.cj.jdbc.Driver
