@@ -1,10 +1,7 @@
 package com.mercadolivro.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
+import com.mercadolivro.enums.BookStatus
+import jakarta.persistence.*
 import java.math.BigDecimal
 
 @Entity(name = "book")
@@ -17,8 +14,13 @@ data class BookModel(
     var name : String,
 
     @Column
-    var price: BigDecimal
+    var price: BigDecimal,
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    var status : BookStatus,
 
-
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    var customer : CustomerModel? = null
 )
