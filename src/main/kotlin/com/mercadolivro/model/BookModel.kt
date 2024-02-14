@@ -18,7 +18,7 @@ data class BookModel(
 
     @Column
     @Enumerated(EnumType.STRING)
-    var status : BookStatus,
+    var status : BookStatus? = null,
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
