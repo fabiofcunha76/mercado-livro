@@ -22,7 +22,7 @@ class CustomerService ( val customerRepository: CustomerRepository) {
         customerRepository.save(customer)
     }
 
-    fun getCustomer(id:Int): CustomerModel {
+    fun getById(id:Int): CustomerModel {
 
         return customerRepository.findById(id).orElseThrow()
         //return customers.filter { it.id!!.equals(id) }.first()
